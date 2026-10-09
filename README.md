@@ -1,8 +1,186 @@
-# SURAKSH: AI-Powered Road Safety & Smart City Intelligence Platform
+# SURAKSH — AI-Powered Road Safety & Smart City Intelligence Platform
+
 > **AI-Based High-Risk Road Location Identification and Visualization System**  
 > *Detect Risk. Prioritize Action. Build Safer Roads.*
 
-SURAKSH bridges the gap between everyday citizens and municipal traffic safety authorities. Citizens report real-world road hazards with photographic evidence and automatic GPS geolocation, while government officials leverage an explainable AI Priority Queue, live GIS geospatial analytics, and before-and-after safety audits to target high-risk corridors.
+**Domain:** AI for Smart Cities and Sustainability | **Stack:** React 18 · TypeScript · Vite · Leaflet GIS · Recharts · Tailwind CSS
+
+---
+
+## 📌 Overview
+
+**SURAKSH** bridges the gap between everyday **citizens** reporting road hazards and **government authorities** who need data-driven tools to identify dangerous corridors, prioritize interventions, and measure their impact.
+
+- 🗺️ **Citizens** — Report hazards with GPS, photo evidence, and 9-category taxonomy. Track submissions in real-time.
+- 🏛️ **Authorities** — Interactive GIS map, explainable AI priority queue, report triage, safety analytics, and intervention audit.
+- 🤖 **AI Copilot** — Context-grounded floating assistant answering queries from the live dataset.
+
+---
+
+## 👥 Role-Based Access
+
+| Role | Entry Point | Access |
+|---|---|---|
+| **Citizen** | `/citizen/dashboard` | Report hazards, track submissions, view map |
+| **Authority** | `/authority/dashboard` | Full GIS console, hotspots, triage, analytics |
+
+---
+
+## 🌟 Feature Breakdown
+
+### Citizen Portal
+| Feature | Description |
+|---|---|
+| Hazard Reporting Form | 9-category taxonomy with GPS geolocation + Nominatim reverse geocoding |
+| AI Image Classifier | Simulated confidence-scored visual hazard detection on upload |
+| Anonymous Reporting | Submit without identity disclosure |
+| My Reports Tracker | Filter/search submissions; view status timeline + official responses |
+| Status Lifecycle | `Submitted → Under Review → Verified → In Progress → Resolved` |
+
+### Authority Console
+| Feature | Description |
+|---|---|
+| Live GIS Map | Leaflet + OpenStreetMap with risk-coded corridor markers, accident heatmap, hazard pins |
+| Priority Queue (Hotspots) | Ranked corridors with explainable AI scores (0–100), interactive weight sliders, CSV export |
+| Hazard Reports Triage | Verify, reject, assign teams, update status with official notes |
+| Safety Analytics | Recharts: crash type pie chart, speed limit distribution, time-of-day histogram, weekly trend |
+| Intervention Audit | Before-and-after records showing crash/fatality reductions |
+| Notification Centre | Critical hazard alerts, cluster detections, overdue reviews, weekly summaries |
+
+---
+
+## 🗺️ Supported Cities
+
+| City | Default | Corridors |
+|---|---|---|
+| **Bengaluru Metro** | ✅ | Silk Board, ORR Bellandur, Hebbal, Domlur, Mysuru Rd, Tin Factory... |
+| **Delhi NCR** | Selectable | Select from city dropdown |
+| **Basel City (Switzerland)** | Selectable | Reference UI pilot: Elisabethenanlage, Margarethenstrasse, Spalenring... |
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+- **Node.js** ≥ 18.x · **npm** ≥ 9.x
+
+```bash
+git clone https://github.com/harshith-c05/SAMAI.git
+cd SAMAI
+npm install
+npm run dev
+```
+
+Visit: **http://localhost:5173**
+
+### Production Build
+```bash
+npm run build
+npm run preview
+```
+
+---
+
+## 🔑 Demo Credentials
+
+The login page has **1-click demo buttons** for instant evaluation.
+
+| Role | Identifier | Password |
+|---|---|---|
+| **Authority Official** | `TP-40218` | Any |
+| **Citizen** | `ananya.sharma@community.org` | Any |
+
+> Data is pre-seeded to `localStorage`. Use **Reset All Data** in Profile → System Tools to restore defaults.
+
+---
+
+## 🧪 Tests
+
+```bash
+npm test
+```
+
+Tests cover the deterministic **Priority Scoring Engine** (`src/utils/priorityScoring.test.ts`) — all risk category thresholds, weight normalization, and corridor re-ranking.
+
+---
+
+## 🛠️ Technology Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | React 18 + Vite 6 + TypeScript 5.6 |
+| Routing | React Router DOM v6 |
+| Styling | Tailwind CSS v3 + Custom Dark Token System + Inter (Google Fonts) |
+| GIS / Maps | Leaflet 1.9 + React-Leaflet 4 + OpenStreetMap tiles |
+| Charts | Recharts 2 |
+| Icons | Lucide React |
+| Persistence | React Context + Browser LocalStorage |
+| Testing | Vitest |
+| Build | Vite + Rollup (manual chunk splitting) |
+
+---
+
+## 📁 Project Structure
+
+```
+SAMAI/
+├── index.html
+├── vite.config.ts              # Build + chunk splitting
+├── tailwind.config.js          # Design token system
+├── src/
+│   ├── App.tsx                 # Router + protected routes
+│   ├── index.css               # Global styles + Leaflet dark overrides
+│   ├── types/index.ts          # TypeScript interfaces
+│   ├── data/mockData.ts        # Seeded corridors, reports, incidents, notifications
+│   ├── context/                # AuthContext + DataContext (global state)
+│   ├── services/               # LocalStorage CRUD abstraction
+│   ├── utils/                  # Priority scoring engine + CSV export
+│   ├── components/             # Navbar, Sidebar, GISMap, SafetyCopilot, Badges
+│   └── pages/                  # 9 full pages (citizen + authority + login + profile)
+```
+
+---
+
+## 🧠 AI Priority Scoring Formula
+
+```
+Score = (Severity × 0.40) + (Frequency × 0.25) + (Recency × 0.20) + (Evidence × 0.15)
+```
+
+| Sub-score | Based On |
+|---|---|
+| Severity | Fatal × 5 + Severe × 3 + Slight × 1 (normalized) |
+| Frequency | Total incident count (normalized) |
+| Recency | Trend: increasing=90, stable=60, decreasing=30 |
+| Evidence | Verified citizen report count (normalized) |
+
+Weights are user-adjustable live on the Hotspots page. Formula is **fully transparent** — each corridor shows a human-readable explanation of its score.
+
+---
+
+## 📦 Bundle Chunks (Code-Split)
+
+| Chunk | Contents | Gzip |
+|---|---|---|
+| `leaflet-vendor` | leaflet + react-leaflet | ~45 KB |
+| `react-vendor` | react + react-dom + react-router | ~54 KB |
+| `recharts-vendor` | recharts | ~114 KB |
+| `lucide-vendor` | lucide-react | ~7 KB |
+| `index` | All app code | ~45 KB |
+
+---
+
+## 📜 License
+
+MIT License — Free for educational and non-commercial use.
+
+---
+
+## 🏆 Built For
+
+**Inter-College Hackathon** — Domain: *AI for Smart Cities and Sustainability*  
+Team: SURAKSH | GitHub: [harshith-c05/SAMAI](https://github.com/harshith-c05/SAMAI)
+
 
 ---
 
