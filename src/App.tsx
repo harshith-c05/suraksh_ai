@@ -15,6 +15,7 @@ import { AuthorityReportsPage } from './pages/AuthorityReportsPage';
 import { AuthorityHotspotsPage } from './pages/AuthorityHotspotsPage';
 import { AuthorityAnalyticsPage } from './pages/AuthorityAnalyticsPage';
 import { ProfilePage } from './pages/ProfilePage';
+import { CitizenMyReportsPage } from './pages/CitizenMyReportsPage';
 
 // Route protection for Authority
 const AuthorityRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -99,6 +100,15 @@ export const App: React.FC = () => {
                 element={
                   <ProtectedRoute>
                     <CitizenReportPage />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/citizen/my-reports"
+                element={
+                  <ProtectedRoute>
+                    <CitizenMyReportsPage />
                   </ProtectedRoute>
                 }
               />

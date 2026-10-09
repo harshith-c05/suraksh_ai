@@ -14,6 +14,7 @@ import {
   Layers,
   Radio,
   ExternalLink,
+  FileSearch,
 } from 'lucide-react';
 
 interface NavItem {
@@ -75,6 +76,12 @@ export const Sidebar: React.FC = () => {
       label: 'Report Road Hazard',
       icon: PlusCircle,
       highlight: true,
+    },
+    {
+      to: '/citizen/my-reports',
+      label: 'My Reports',
+      icon: FileSearch,
+      count: reports.filter((r) => r.status !== 'resolved' && r.status !== 'rejected').length,
     },
     {
       to: '/profile',
